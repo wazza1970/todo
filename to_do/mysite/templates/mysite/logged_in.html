@@ -1,0 +1,70 @@
+{% extends 'mysite/base.html' %}
+
+{% block title %}Todo List{% endblock %}
+{% load static %}
+{% block body %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            {% if user.is_authenticated %}
+            Hi {{ user.username }}!
+            <p><a href="{% url 'logout' %}" class="btn btn-primary">Log Out</a></p>
+          {% else %}
+            <p>You are not logged in</p>
+            <a href="{% url 'login' %}" class="btn btn-primary">Log In</a>
+          
+          {% endif %}
+          <form method="post" id="todo_form" action="{% url 'logged_in' %}">
+              {% csrf_token %} 
+            
+               {{ form}}
+               <button type="submit" class="btn btn-success" >Add Todo</button>
+          </form>
+          
+          {% if item_list %}
+          <table class="table">
+              <thead>
+                <tr>
+                  <th>Completed</th>
+                  <th scope="col">Todo</th>
+                  <th scope="col">Created</th>
+                  <th scope="col">Edit</th>
+                  <th scope="col">Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                    
+                  
+                  {% for item in item_list %}
+                <tr>
+                 
+                  <td scope="row">
+                      {% if item.completed and item.id == item.id %}
+                      <a href="{% url 'completed' item.id %}"><button class="btn btn-success">{{item.completed }}</button> </a>
+                        {% else %}
+                         this is not completed
+                      {%endif%}
+                  
+                  <td>{{ item }}</td>
+                  <td>{{ item.created }}</td>
+                  <td><a href="{% url 'edit' item.id %}" class="btn btn-warning">Edit</a></td>
+                  <td><a href="{% url 'delete' item.id %}" class="btn btn-danger">Delete</a></td>
+                 
+                </tr>
+                {%endfor %}
+                
+                
+              </tbody>
+            </table>
+          {% else %}
+          <p>You have no Todo's yet.</p>
+          {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

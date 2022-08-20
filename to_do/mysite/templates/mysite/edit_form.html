@@ -1,0 +1,31 @@
+{% extends 'mysite/base.html' %}
+
+{% block body %} 
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <div class="card">
+                <div class="card-header text-white bg-info">
+                    <div class="card-title">
+                       Edit Item
+                    </div>
+                </div>
+                <div class="card-body">
+                    {% if user.is_authenticated %}
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form }}
+                       
+                        <button class="bg-info" type="submit">Save</button>
+                        <a href="{% url 'logged_in' %}" class="btn btn-success">No Take me back</a>
+                    </form>
+                    {% else %} 
+                    <a href="{% url 'login' %}" class="btn btn-primary">Log In</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

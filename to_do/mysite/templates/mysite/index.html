@@ -1,0 +1,20 @@
+{% extends 'mysite/base.html'%} 
+{% block body %} 
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Create your every own Todo List</h1>
+            <a href="{% url 'login' %}" class="btn btn-success">Login</a>
+            <form method="post">
+                {% csrf_token %} 
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

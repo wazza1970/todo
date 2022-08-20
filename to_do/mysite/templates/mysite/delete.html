@@ -1,0 +1,25 @@
+{% extends 'mysite/base.html'%} 
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            {% if user.is_authenticated %}
+            <form action="" method="post">
+                {% csrf_token %}
+                <h2>Are you sure you want to delete {{ item }}</h2>
+                <button type="submit" class="btn btn-danger">Are Sure?</button>
+                <a href="{% url 'logged_in' %}" class="btn btn-success">No Take me back</a>
+            </form>
+            
+            {% else %}
+            <a href="{% url 'login' %}" class="btn btn-primary">Log In</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
